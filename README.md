@@ -7,14 +7,15 @@ A wrapper of `IOReturn`.
 
 ## Install
 
+### Using package manager
+
+You can install `include/pqrs` by using [cget](https://github.com/pfultz2/cget).
+
+```shell
+cget install pqrs-org/cpp-cget-recipes
+cget install pqrs-org/cpp-osx-iokit_return
+```
+
 ### Manual install
 
 Copy `include/pqrs` directory into your include directory.
-
-### Using package manager
-
-You can also install `include/pqrs` by using [cget](https://github.com/pfultz2/cget).
-
-```shell
-cget install pqrs-org/cpp-osx-iokit_return@v1.1.0 --cmake header
-```
