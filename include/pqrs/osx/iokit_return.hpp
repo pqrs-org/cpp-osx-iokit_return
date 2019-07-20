@@ -87,6 +87,18 @@ public:
     return std::string("Unknown IOReturn (") + std::to_string(return_) + ")";
   }
 
+  bool success(void) const {
+    return return_ == kIOReturnSuccess;
+  }
+
+  bool exclusive_access(void) const {
+    return return_ == kIOReturnExclusiveAccess;
+  }
+
+  bool not_permitted(void) const {
+    return return_ == kIOReturnNotPermitted;
+  }
+
   operator bool(void) const {
     return return_ == kIOReturnSuccess;
   }
