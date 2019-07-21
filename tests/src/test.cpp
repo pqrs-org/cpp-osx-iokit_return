@@ -44,4 +44,12 @@ TEST_CASE("iokit_return") {
     REQUIRE(r.exclusive_access() == false);
     REQUIRE(r.not_permitted() == true);
   }
+  {
+    pqrs::osx::iokit_return r(123456);
+    REQUIRE(r.to_string() == "Unknown IOReturn (123456)");
+    REQUIRE(r == false);
+    REQUIRE(r.success() == false);
+    REQUIRE(r.exclusive_access() == false);
+    REQUIRE(r.not_permitted() == false);
+  }
 }
