@@ -1,55 +1,60 @@
-#define CATCH_CONFIG_MAIN
-#include <catch2/catch.hpp>
-
+#include <boost/ut.hpp>
 #include <pqrs/osx/iokit_return.hpp>
 
-TEST_CASE("iokit_return") {
-  {
-    pqrs::osx::iokit_return r(kIOReturnSuccess);
-    REQUIRE(r.to_string() == "kIOReturnSuccess");
-    REQUIRE(r == true);
-    REQUIRE(r.success() == true);
-    REQUIRE(r.exclusive_access() == false);
-    REQUIRE(r.not_permitted() == false);
-  }
-  {
-    pqrs::osx::iokit_return r(kIOReturnError);
-    REQUIRE(r.to_string() == "kIOReturnError");
-    REQUIRE(r == false);
-    REQUIRE(r.success() == false);
-    REQUIRE(r.exclusive_access() == false);
-    REQUIRE(r.not_permitted() == false);
-  }
-  {
-    pqrs::osx::iokit_return r(kIOReturnNoMemory);
-    REQUIRE(r.to_string() == "kIOReturnNoMemory");
-    REQUIRE(r == false);
-    REQUIRE(r.success() == false);
-    REQUIRE(r.exclusive_access() == false);
-    REQUIRE(r.not_permitted() == false);
-  }
-  {
-    pqrs::osx::iokit_return r(kIOReturnExclusiveAccess);
-    REQUIRE(r.to_string() == "kIOReturnExclusiveAccess");
-    REQUIRE(r == false);
-    REQUIRE(r.success() == false);
-    REQUIRE(r.exclusive_access() == true);
-    REQUIRE(r.not_permitted() == false);
-  }
-  {
-    pqrs::osx::iokit_return r(kIOReturnNotPermitted);
-    REQUIRE(r.to_string() == "kIOReturnNotPermitted");
-    REQUIRE(r == false);
-    REQUIRE(r.success() == false);
-    REQUIRE(r.exclusive_access() == false);
-    REQUIRE(r.not_permitted() == true);
-  }
-  {
-    pqrs::osx::iokit_return r(123456);
-    REQUIRE(r.to_string() == "Unknown IOReturn (123456)");
-    REQUIRE(r == false);
-    REQUIRE(r.success() == false);
-    REQUIRE(r.exclusive_access() == false);
-    REQUIRE(r.not_permitted() == false);
-  }
+int main(void) {
+  using namespace boost::ut;
+  using namespace boost::ut::literals;
+
+  "iokit_return"_test = [] {
+    {
+      pqrs::osx::iokit_return r(kIOReturnSuccess);
+      expect(r.to_string() == "kIOReturnSuccess");
+      expect(r == true);
+      expect(r.success() == true);
+      expect(r.exclusive_access() == false);
+      expect(r.not_permitted() == false);
+    }
+    {
+      pqrs::osx::iokit_return r(kIOReturnError);
+      expect(r.to_string() == "kIOReturnError");
+      expect(r == false);
+      expect(r.success() == false);
+      expect(r.exclusive_access() == false);
+      expect(r.not_permitted() == false);
+    }
+    {
+      pqrs::osx::iokit_return r(kIOReturnNoMemory);
+      expect(r.to_string() == "kIOReturnNoMemory");
+      expect(r == false);
+      expect(r.success() == false);
+      expect(r.exclusive_access() == false);
+      expect(r.not_permitted() == false);
+    }
+    {
+      pqrs::osx::iokit_return r(kIOReturnExclusiveAccess);
+      expect(r.to_string() == "kIOReturnExclusiveAccess");
+      expect(r == false);
+      expect(r.success() == false);
+      expect(r.exclusive_access() == true);
+      expect(r.not_permitted() == false);
+    }
+    {
+      pqrs::osx::iokit_return r(kIOReturnNotPermitted);
+      expect(r.to_string() == "kIOReturnNotPermitted");
+      expect(r == false);
+      expect(r.success() == false);
+      expect(r.exclusive_access() == false);
+      expect(r.not_permitted() == true);
+    }
+    {
+      pqrs::osx::iokit_return r(123456);
+      expect(r.to_string() == "Unknown IOReturn (123456)");
+      expect(r == false);
+      expect(r.success() == false);
+      expect(r.exclusive_access() == false);
+      expect(r.not_permitted() == false);
+    }
+  };
+
+  return 0;
 }
