@@ -1,6 +1,6 @@
 #include <pqrs/osx/iokit_return.hpp>
 
-int main(void) {
+int main() {
   {
     pqrs::osx::iokit_return r(kIOReturnAborted);
     std::cout << r << std::endl;

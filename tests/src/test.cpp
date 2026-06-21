@@ -1,13 +1,15 @@
 #include <boost/ut.hpp>
 #include <pqrs/osx/iokit_return.hpp>
+#include <sstream>
 
-int main(void) {
+int main() {
   using namespace boost::ut;
   using namespace boost::ut::literals;
 
   "iokit_return"_test = [] {
     {
       pqrs::osx::iokit_return r(kIOReturnSuccess);
+      expect(r.get() == kIOReturnSuccess);
       expect(r.to_string() == "kIOReturnSuccess");
       expect(r == true);
       expect(r.success() == true);
@@ -48,11 +50,18 @@ int main(void) {
     }
     {
       pqrs::osx::iokit_return r(123456);
+      expect(r.get() == static_cast<IOReturn>(123456));
       expect(r.to_string() == "Unknown IOReturn (123456)");
       expect(r == false);
       expect(r.success() == false);
       expect(r.exclusive_access() == false);
       expect(r.not_permitted() == false);
+    }
+    {
+      pqrs::osx::iokit_return r(kIOReturnAborted);
+      std::stringstream stream;
+      stream << r;
+      expect(stream.str() == "kIOReturnAborted");
     }
   };
 
